@@ -355,7 +355,7 @@ terminal output, or put it in a `NEXT_PUBLIC_*` variable.
 | `npm run setup` | Create `.env.local` without overwriting an existing file |
 | `npm run preflight` | Validate browser/Testnet configuration |
 | `npm run preflight:agent` | Also validate the private Testnet signer without printing it |
-| `npm run dev` | Run the browser client on port 3001 |
+| `npm run dev` | Show the workshop banner and run the browser client on port 3001 |
 | `npm run agent` | Execute one autonomous paid request |
 | `npm run check` | Run lint, unit tests and production build |
 
