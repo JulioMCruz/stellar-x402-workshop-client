@@ -281,6 +281,20 @@ NEXT_PUBLIC_STELLAR_NETWORK=stellar:testnet
 
 Open http://localhost:3001 and follow the buttons in order:
 
+The client terminal prints a safe trace that can be shown during the workshop:
+
+```text
+[x402 client][a1b2c3d4] 1 · UNPAID API REQUEST SENT | api=http://localhost:3000
+[x402 client][a1b2c3d4] 2 · HTTP 402 · PAYMENT REQUIRED RECEIVED | status=402 | price=$0.001 USDC
+[x402 client][e5f6g7h8] 1 · X402 PAYMENT FLOW STARTED | price=$0.001 USDC | network=stellar:testnet
+[x402 client][e5f6g7h8] 2 · WALLET AUTHORIZATION REQUESTED | wallet=GABCDE…WXYZ
+[x402 client][e5f6g7h8] 3 · WALLET AUTHORIZATION APPROVED | wallet=GABCDE…WXYZ
+[x402 client][e5f6g7h8] 4 · PAYMENT RESPONSE RECEIVED | status=200 | facilitator=OpenZeppelin
+```
+
+The same events remain visible in Chrome DevTools. Signed authorization data,
+private keys and encoded payment headers are never logged.
+
 1. **Conectar Freighter** — confirm the displayed account is the funded Testnet
    account.
 2. **Ver respuesta 402** — expected message: `402 recibido` and a visible
