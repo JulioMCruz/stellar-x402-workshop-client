@@ -339,7 +339,14 @@ Expected output includes:
 [x402 agent] 5 · PAYMENT RESPONSE RECEIVED | status=200 | settlement=true
 [x402 agent] 6 · PAYMENT SETTLED | success=true | network=stellar:testnet
 [x402 agent] 7 · STELLAR TRANSACTION CONFIRMED | hash=...
-[x402 agent] 8 · PROTECTED RESOURCE DELIVERED | body=...
+[x402 agent] 8 · PROTECTED RESOURCE DELIVERED
+
+---------------- PROTECTED RESOURCE JSON ----------------
+{
+  "insight": "Agents can purchase services per request using HTTP and USDC.",
+  "paid": true
+}
+---------------- END PROTECTED RESOURCE ----------------
 ```
 
 The script loads `.env.local` directly. Never commit the secret, paste it into

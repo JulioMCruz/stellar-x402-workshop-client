@@ -3,6 +3,7 @@ import { createEd25519Signer } from "@x402/stellar";
 import { ExactStellarScheme } from "@x402/stellar/exact/client";
 import { x402Client, wrapFetchWithPayment } from "@x402/fetch";
 import { clientConfig } from "../src/lib/config";
+import { formatJsonResponse } from "../src/lib/format-json";
 
 loadEnv({ path: ".env.local", quiet: true });
 
@@ -38,7 +39,10 @@ async function main() {
     console.log(`[x402 agent] 6 · PAYMENT SETTLED | success=${settlement.success === true} | network=${settlement.network ?? "not provided"}`);
     console.log(`[x402 agent] 7 · STELLAR TRANSACTION CONFIRMED | hash=${settlement.transaction ?? "not provided"}`);
   }
-  console.log(`[x402 agent] 8 · PROTECTED RESOURCE DELIVERED | body=${body}`);
+  console.log("[x402 agent] 8 · PROTECTED RESOURCE DELIVERED");
+  console.log("\n---------------- PROTECTED RESOURCE JSON ----------------");
+  console.log(formatJsonResponse(body));
+  console.log("---------------- END PROTECTED RESOURCE ----------------\n");
   if (!response.ok) process.exitCode = 1;
 }
 
