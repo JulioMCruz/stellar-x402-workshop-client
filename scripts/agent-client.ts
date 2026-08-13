@@ -16,8 +16,21 @@ async function main() {
   console.log(`[agent] payer=${signer.address} network=${network}`);
   const response = await paidFetch(`${apiUrl}/api/premium-insight`);
   const body = await response.text();
+  const encodedSettlement = response.headers.get("PAYMENT-RESPONSE");
+  const settlement = encodedSettlement
+    ? JSON.parse(Buffer.from(encodedSettlement, "base64").toString("utf8")) as {
+        success?: boolean;
+        transaction?: string;
+        network?: string;
+      }
+    : null;
   console.log(`[agent] status=${response.status}`);
-  console.log(`[agent] payment-response=${response.headers.has("PAYMENT-RESPONSE")}`);
+  console.log(`[agent] payment-response=${Boolean(settlement)}`);
+  if (settlement) {
+    console.log(`[agent] settlement-success=${settlement.success === true}`);
+    console.log(`[agent] transaction=${settlement.transaction ?? "not provided"}`);
+    console.log(`[agent] settlement-network=${settlement.network ?? "not provided"}`);
+  }
   console.log(body);
   if (!response.ok) process.exitCode = 1;
 }
