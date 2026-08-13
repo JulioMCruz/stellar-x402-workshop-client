@@ -15,7 +15,8 @@ async function main() {
   const client = new x402Client().register(network, new ExactStellarScheme(signer));
   const paidFetch = wrapFetchWithPayment(fetch, client);
 
-  console.log(`[agent] payer=${signer.address} network=${network}`);
+  console.log(`[x402 agent] 1 · PAYMENT FLOW STARTED | payer=${signer.address.slice(0, 6)}…${signer.address.slice(-4)} | network=${network}`);
+  console.log(`[x402 agent] 2 · REQUESTING PROTECTED RESOURCE | api=${apiUrl}`);
   const response = await paidFetch(`${apiUrl}/api/premium-insight`);
   const body = await response.text();
   const encodedSettlement = response.headers.get("PAYMENT-RESPONSE");
@@ -26,18 +27,16 @@ async function main() {
         network?: string;
       }
     : null;
-  console.log(`[agent] status=${response.status}`);
-  console.log(`[agent] payment-response=${Boolean(settlement)}`);
+  console.log(`[x402 agent] 3 · PAYMENT RESPONSE RECEIVED | status=${response.status} | settlement=${Boolean(settlement)}`);
   if (settlement) {
-    console.log(`[agent] settlement-success=${settlement.success === true}`);
-    console.log(`[agent] transaction=${settlement.transaction ?? "not provided"}`);
-    console.log(`[agent] settlement-network=${settlement.network ?? "not provided"}`);
+    console.log(`[x402 agent] 4 · PAYMENT SETTLED | success=${settlement.success === true} | network=${settlement.network ?? "not provided"}`);
+    console.log(`[x402 agent] 5 · STELLAR TRANSACTION | hash=${settlement.transaction ?? "not provided"}`);
   }
-  console.log(body);
+  console.log(`[x402 agent] 6 · PROTECTED RESOURCE DELIVERED | body=${body}`);
   if (!response.ok) process.exitCode = 1;
 }
 
 main().catch((error) => {
-  console.error(error instanceof Error ? error.message : error);
+  console.error(`[x402 agent] PAYMENT FLOW ERROR | error=${error instanceof Error ? error.message : error}`);
   process.exit(1);
 });
