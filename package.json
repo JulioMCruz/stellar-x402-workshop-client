@@ -7,6 +7,9 @@
     "node": ">=22.0.0"
   },
   "scripts": {
+    "setup": "node scripts/setup-env.mjs",
+    "preflight": "node --env-file=.env.local scripts/preflight.mjs",
+    "preflight:agent": "node --env-file=.env.local scripts/preflight.mjs --agent",
     "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start -p 3001",

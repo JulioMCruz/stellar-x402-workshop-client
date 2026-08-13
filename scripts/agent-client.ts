@@ -1,8 +1,10 @@
-import "dotenv/config";
+import { config as loadEnv } from "dotenv";
 import { createEd25519Signer } from "@x402/stellar";
 import { ExactStellarScheme } from "@x402/stellar/exact/client";
 import { x402Client, wrapFetchWithPayment } from "@x402/fetch";
 import { clientConfig } from "../src/lib/config";
+
+loadEnv({ path: ".env.local", quiet: true });
 
 async function main() {
   const { apiUrl, network } = clientConfig();
