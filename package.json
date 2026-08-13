@@ -15,6 +15,8 @@
     "start": "next start -p 3001",
     "lint": "eslint .",
     "test": "vitest run",
+    "agent:wallet": "tsx scripts/agent-wallet.ts",
+    "agent:pay": "tsx scripts/agent-client.ts",
     "agent": "tsx scripts/agent-client.ts",
     "check": "npm run lint && npm run test && npm run build"
   },

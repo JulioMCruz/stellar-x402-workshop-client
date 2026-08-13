@@ -318,17 +318,35 @@ Then run:
 
 ```bash
 npm run preflight:agent
-npm run agent
+npm run agent:wallet
+npm run agent:pay
 ```
+
+`agent:wallet` prints the agent's public address, network, official USDC
+trustline status, USDC balance and network fee balance. Use the public address
+to fund the disposable Testnet agent wallet; the secret is never printed.
+
+`agent:pay` first demonstrates the unpaid `402` challenge, then signs and
+retries autonomously without Freighter or human approval.
 
 Expected output includes:
 
 ```text
-[agent] status=200
-[agent] payment-response=true
-[agent] settlement-success=true
-[agent] transaction=...
-[agent] settlement-network=stellar:testnet
+[x402 agent] 1 · AGENT WALLET LOADED | payer=GABCDE…WXYZ | network=stellar:testnet
+[x402 agent] 2 · UNPAID REQUEST SENT | api=http://localhost:3000
+[x402 agent] 3 · HTTP 402 · PAYMENT REQUIRED RECEIVED | price=$0.001 USDC
+[x402 agent] 4 · AUTONOMOUS PAYMENT AUTHORIZATION STARTED | signer=local agent wallet
+[x402 agent] 5 · PAYMENT RESPONSE RECEIVED | status=200 | settlement=true
+[x402 agent] 6 · PAYMENT SETTLED | success=true | network=stellar:testnet
+[x402 agent] 7 · STELLAR TRANSACTION CONFIRMED | hash=...
+[x402 agent] 8 · PROTECTED RESOURCE DELIVERED
+
+---------------- PROTECTED RESOURCE JSON ----------------
+{
+  "insight": "Agents can purchase services per request using HTTP and USDC.",
+  "paid": true
+}
+---------------- END PROTECTED RESOURCE ----------------
 ```
 
 The script loads `.env.local` directly. Never commit the secret, paste it into
@@ -356,7 +374,9 @@ terminal output, or put it in a `NEXT_PUBLIC_*` variable.
 | `npm run preflight` | Validate browser/Testnet configuration |
 | `npm run preflight:agent` | Also validate the private Testnet signer without printing it |
 | `npm run dev` | Show the workshop banner and run the browser client on port 3001 |
-| `npm run agent` | Execute one autonomous paid request |
+| `npm run agent:wallet` | Show the agent public wallet and current USDC readiness |
+| `npm run agent:pay` | Execute one autonomous paid x402 request |
+| `npm run agent` | Backward-compatible alias for `agent:pay` |
 | `npm run check` | Run lint, unit tests and production build |
 
 ## Troubleshooting
