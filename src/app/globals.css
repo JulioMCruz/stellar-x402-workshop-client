@@ -1,0 +1,18 @@
+:root { color-scheme: dark; --lime: #d8ff7d; --muted: #a7adb8; }
+* { box-sizing: border-box; }
+body { margin: 0; background: #090b10; color: #f8fafc; font-family: Arial, sans-serif; }
+main { width: min(900px, calc(100% - 40px)); margin: 72px auto; }
+.eyebrow { color: var(--lime); letter-spacing: .14em; font-weight: 700; font-size: 13px; }
+h1 { font-size: clamp(42px, 7vw, 76px); line-height: .98; max-width: 800px; margin: 24px 0; }
+.lead { color: var(--muted); font-size: 22px; line-height: 1.5; max-width: 700px; }
+.demo { margin: 54px 0 36px; border-top: 1px solid #343943; border-bottom: 1px solid #343943; padding: 28px 0; }
+.status { display: grid; grid-template-columns: 90px 1fr; gap: 16px; margin: 8px 0; color: var(--muted); }
+.status strong { color: white; overflow-wrap: anywhere; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 28px 0; }
+button { border: 1px solid #4a515e; background: #161a22; color: white; padding: 13px 18px; font-weight: 700; cursor: pointer; }
+button:hover { border-color: var(--lime); }
+button.primary { color: #090b10; background: var(--lime); border-color: var(--lime); }
+pre { min-height: 90px; background: #11151c; padding: 18px; white-space: pre-wrap; overflow-wrap: anywhere; color: var(--muted); }
+pre.success { color: var(--lime); } pre.error { color: #ff8f8f; }
+ol { color: var(--muted); font-size: 18px; line-height: 1.8; padding-left: 22px; }
+strong { color: white; }
